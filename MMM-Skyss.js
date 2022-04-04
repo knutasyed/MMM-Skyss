@@ -205,7 +205,7 @@ Module.register("MMM-Skyss",{
         var client = new HttpClient();
 
         client.get(stopUrl(), function(stopResponse) {
-            var departure = JSON.parse(stopResponse);
+            var departure = JSON.parse(stopResponse.slice(9,-1));
             var times = departure.PassingTimes;
 
             var allStopItems = [];
