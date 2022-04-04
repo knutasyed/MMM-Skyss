@@ -168,7 +168,7 @@ Module.register("MMM-Skyss",{
             
                 //Time is next day
                 if (realTime.isBefore(moment())) {
-                	realTime.add(1, 'day');
+                    realTime.add(1, 'day');
                 }
             }
             return realTime;
@@ -343,15 +343,16 @@ Module.register("MMM-Skyss",{
         var diff = tti - now;
         var min = Math.floor(diff/60000);
 
-        if (min == 0) {
-            return this.translate("NOW");
-        } else if (min == 1) {
-            return this.translate("1MIN");
-        } else if (min < this.config.humanizeTimeTreshold) {
-            return min + " " + this.translate("MINUTES");
-        } else {
-            return tti.getHours() + ":" + ("0" + tti.getMinutes()).slice(-2);
+        if (this.config.humanizeTimeTreshold != 0) {
+            if (min == 0) {
+                return this.translate("NOW");
+            } else if (min == 1) {
+                return this.translate("1MIN");
+            } else if (min < this.config.humanizeTimeTreshold) {
+                return min + " " + this.translate("MINUTES");
+            }
         }
+        return tti.getHours() + ":" + ("0" + tti.getMinutes()).slice(-2);
     },
 
     socketNotificationReceived: function(notification, payload) {
